@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MarvelComics/ViewController.swift"
-            timestampString = "612259246.091028"
+            timestampString = "612282113.312752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "fetchArticles()"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MarvelComics/ViewController.swift"
-            timestampString = "612261191.3665479"
+            timestampString = "612282113.312752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "fetchArticles()"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MarvelComics/ViewController.swift"
-            timestampString = "612261649.450313"
+            timestampString = "612282113.312752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>

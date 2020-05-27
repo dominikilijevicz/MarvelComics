@@ -52,15 +52,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         let comic = Comic()
                         if let title = comicsFromJson["title"] as? String, let isbn = comicsFromJson["isbn"] as? String {
                             comic.title = title
+                            //nema isbna???
                             comic.isbn = isbn
                             
                         }
                         if let path = thumbFromJson?["path"] as? String, let ext = thumbFromJson?["extension"] as? String {
                             comic.imgUrl = "\(path).\(ext)"
                             
-
+                            
                         }
                         if let date = dateFromJson?["date"] as? String{
+                            // nema datuma???
                             comic.dateOnSale = date
                             
                         }
@@ -85,8 +87,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "comicCell", for: indexPath) as! ComicCell
         
-        cell.title.text = comics?[indexPath.row].title
-        cell.dateOnSale.text = comics?[indexPath.row].dateOnSale
+        cell.title.text = comics?[indexPath.section].title
+        cell.dateOnSale.text = comics?[indexPath.section].dateOnSale
+        cell.imgView.imageFromURL(urlString: (comics?[indexPath.section].imgUrl)!)
 
         
         return cell
@@ -116,6 +119,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return hexString
     }
     
+}
+
+extension UIImageView {
+    public func imageFromURL(urlString: String) {
+        
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.frame = CGRect.init(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
+        activityIndicator.startAnimating()
+        if self.image == nil{
+            self.addSubview(activityIndicator)
+        }
+        
+        URLSession.shared.dataTask(with: NSURL(string: urlString)! as URL, completionHandler: { (data, response, error) -> Void in
+            
+            if error != nil {
+                print(error ?? "No Error")
+                return
+            }
+            DispatchQueue.main.async(execute: { () -> Void in
+                let image = UIImage(data: data!)
+                activityIndicator.removeFromSuperview()
+                self.image = image
+            })
+            
+        }).resume()
+    }
 }
 
 
