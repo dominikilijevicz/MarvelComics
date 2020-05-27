@@ -40,19 +40,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.comics = [Comic]()
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String : AnyObject]
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String: AnyObject]
                 
-                if let comicsFromJson = json["results"] as? [[String : AnyObject]]{
-                    for comicsFromJson in comicsFromJson {
+                if let comicsFromJson = json["data"] as? [String: AnyObject]{
+                    let comicsFromJson = comicsFromJson["results"] as? [[String: AnyObject]]
+
+                    
+                    for comicsFromJson in comicsFromJson! {
+                        let thumbFromJson = comicsFromJson["thumbnail"]
+                        let dateFromJson = comicsFromJson["dates"]
                         let comic = Comic()
-                        if let title = comicsFromJson["title"] as? String, let isbn = comicsFromJson["isbn"] as? String{
+                        if let title = comicsFromJson["title"] as? String, let isbn = comicsFromJson["isbn"] as? String {
                             comic.title = title
                             comic.isbn = isbn
                             
                         }
+                        if let path = thumbFromJson?["path"] as? String, let ext = thumbFromJson?["extension"] as? String {
+                            comic.imgUrl = "\(path).\(ext)"
+                            
+
+                        }
+                        if let date = dateFromJson?["date"] as? String{
+                            comic.dateOnSale = date
+                            
+                        }
+                        
                         self.comics?.append(comic)
                     }
+                    
                 }
+                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -63,17 +80,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         task.resume()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+   
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "comicCell", for: indexPath) as! ComicCell
         
-        cell.title.text = self.comics?[indexPath.item].title
-        cell.dateOnSale.text = self.comics?[indexPath.item].dateOnSale
+        cell.title.text = comics?[indexPath.row].title
+        cell.dateOnSale.text = comics?[indexPath.row].dateOnSale
+
         
         return cell
     }
@@ -102,6 +116,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return hexString
     }
     
-
 }
+
 
