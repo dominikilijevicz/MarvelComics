@@ -6,13 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MarvelComics" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="MarvelComics" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -75,11 +76,68 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="SlY-Pb-s1Z" id="RZi-nR-Ofm"/>
+                        <segue destination="hdd-qe-Tl9" kind="showDetail" identifier="DetailsViewSegue" id="hBk-rJ-itB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="112.8" y="121.88905547226388"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="FG6-aF-gUd">
+            <objects>
+                <viewController storyboardIdentifier="DetailsViewController" id="hdd-qe-Tl9" customClass="DetailsViewController" customModule="MarvelComics" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VNb-g8-hou"/>
+                        <viewControllerLayoutGuide type="bottom" id="dAb-8o-KPy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vSa-IE-ywE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ukl-Ko-HaK">
+                                <rect key="frame" x="134" y="629" width="106" height="30"/>
+                                <state key="normal" title="Go Back"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="hdd-qe-Tl9" eventType="touchUpInside" id="AOX-1j-hPT"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tbv-xH-NhP">
+                                <rect key="frame" x="147" y="62" width="212" height="94"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFX-6w-k7S">
+                                <rect key="frame" x="16" y="197" width="343" height="407"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-qL-4QE">
+                                <rect key="frame" x="16" y="45" width="123" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ukl-Ko-HaK" firstAttribute="leading" secondItem="vSa-IE-ywE" secondAttribute="leadingMargin" constant="118" id="RRg-OW-4pP"/>
+                            <constraint firstItem="dAb-8o-KPy" firstAttribute="top" secondItem="Ukl-Ko-HaK" secondAttribute="bottom" constant="8" id="gvf-ho-sWZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ukl-Ko-HaK" secondAttribute="trailing" constant="119" id="pCH-9K-zOJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="descLabel" destination="QFX-6w-k7S" id="heR-Wb-wys"/>
+                        <outlet property="thumbImgView" destination="8w2-qL-4QE" id="jHl-so-9jM"/>
+                        <outlet property="titleLabel" destination="Tbv-xH-NhP" id="E8M-Pm-23e"/>
+                        <segue destination="BYZ-38-t0r" kind="showDetail" identifier="ViewSegue" id="JsA-bs-wOP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5qx-bb-qUE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="925.60000000000002" y="122.78860569715144"/>
         </scene>
     </scenes>
 </document>

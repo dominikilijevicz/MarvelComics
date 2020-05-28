@@ -55,6 +55,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             comic.isbn = isbn
                             
                         }
+                        if let desc = comicsFromJson["description"] as? String {
+                            comic.desc = desc
+                        }
+                        
                         if let path = thumbFromJson?["path"] as? String, let ext = thumbFromJson?["extension"] as? String {
                             comic.imgUrl = "\(path).\(ext)"
                         }
@@ -93,6 +97,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailsViewSegue" {
+            let destVC = segue.destination as! DetailsViewController
+            destVC.comic = sender as? Comic
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        /*
+        let selectedCell = comics?[indexPath.section]
+        let destinationVC = DetailsViewController()
+        destinationVC.comic = selectedCell!
+        */
+        
+        let comic = comics?[indexPath.section]
+        
+        
+        self.performSegue(withIdentifier: "DetailsViewSegue", sender: comic)
+        print("section: \(indexPath.section)")
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {

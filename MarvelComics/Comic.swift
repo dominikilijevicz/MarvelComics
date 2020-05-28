@@ -16,5 +16,6 @@ class Comic: NSObject {
     var desc: String?
     var isbn: String?
     var price: String?
+    var pageCount: String?
 
 }
