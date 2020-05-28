@@ -48,24 +48,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     for comicsFromJson in comicsFromJson! {
                         let thumbFromJson = comicsFromJson["thumbnail"]
-                        let dateFromJson = comicsFromJson["dates"]
+                        
                         let comic = Comic()
                         if let title = comicsFromJson["title"] as? String, let isbn = comicsFromJson["isbn"] as? String {
                             comic.title = title
-                            //nema isbna???
                             comic.isbn = isbn
                             
                         }
                         if let path = thumbFromJson?["path"] as? String, let ext = thumbFromJson?["extension"] as? String {
                             comic.imgUrl = "\(path).\(ext)"
-                            
-                            
                         }
-                        if let date = dateFromJson?["date"] as? String{
-                            // nema datuma???
-                            comic.dateOnSale = date
-                            
+                        
+                        if let dateFromJson = comicsFromJson["dates"] as? [[String: AnyObject]]{
+                            if let firstDateType = dateFromJson.first{
+                                //datumi su takvi kakvi jesu + mozda malo urediti
+                                comic.dateOnSale = firstDateType["date"] as! String
+                            }
                         }
+                        
                         
                         self.comics?.append(comic)
                     }
